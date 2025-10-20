@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Macro AutoClicker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1><span class="icon">⚡</span> PC Macro AutoClicker</h1>
+            <div class="status-bar">
+                <span id="status-text">Ready</span>
+                <div class="status-indicator" id="status-indicator"></div>
+            </div>
+        </header>
+
+        <nav class="tab-navigation">
+            <button class="tab-button active" data-tab="macro">📹 Macro Recorder</button>
+            <button class="tab-button" data-tab="clicker">🖱️ Auto Clicker</button>
+            <button class="tab-button" data-tab="hotkey">⌨️ Auto Hotkey</button>
+        </nav>
+
+        <main class="main-content">
+            <!-- Macro Recorder Tab -->
+            <div class="tab-content active" id="macro-tab">
+                <div class="section">
+                    <h2>Macro Recorder</h2>
+                    <div class="controls-grid">
+                        <div class="control-group">
+                            <label>Record Hotkey:</label>
+                            <input type="text" id="macro-record-key" value="F1" readonly>
+                            <small>Press F1 to start/stop recording</small>
+                        </div>
+                        <div class="control-group">
+                            <label>Playback Hotkey:</label>
+                            <input type="text" id="macro-playback-key" value="F2" readonly>
+                            <small>Press F2 to start/stop playback</small>
+                        </div>
+                    </div>
+                    
+                    <div class="controls-grid">
+                        <div class="control-group">
+                            <label for="macro-speed">Playback Speed:</label>
+                            <select id="macro-speed">
+                                <option value="0.25">0.25x (Slow)</option>
+                                <option value="0.5">0.5x</option>
+                                <option value="1" selected>1x (Normal)</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2">2x (Fast)</option>
+                                <option value="5">5x (Very Fast)</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="macro-times">Repeat Times:</label>
+                            <select id="macro-times">
+                                <option value="1">1 time</option>
+                                <option value="5">5 times</option>
+                                <option value="10">10 times</option>
+                                <option value="-1">Unlimited (until stopped)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="start-recording" class="btn btn-primary">
+                            <span class="record-dot"></span> Start Recording
+                        </button>
+                        <button id="stop-recording" class="btn btn-secondary" disabled>
+                            <span class="stop-square"></span> Stop Recording
+                        </button>
+                        <button id="play-macro" class="btn btn-success" disabled>
+                            <span class="play-triangle"></span> Play Macro
+                        </button>
+                        <button id="stop-macro" class="btn btn-danger" disabled>
+                            <span class="stop-square"></span> Stop Playback
+                        </button>
+                    </div>
+
+                    <div class="info-panel">
+                        <div class="recorded-actions">
+                            <strong>Recorded Actions: <span id="action-count">0</span></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto Clicker Tab -->
+            <div class="tab-content" id="clicker-tab">
+                <div class="section">
+                    <h2>Auto Clicker</h2>
+                    <div class="controls-grid">
+                        <div class="control-group">
+                            <label for="click-speed">Click Speed (CPS):</label>
+                            <select id="click-speed">
+                                <option value="1">1 CPS (Slow)</option>
+                                <option value="2">2 CPS</option>
+                                <option value="5" selected>5 CPS (Normal)</option>
+                                <option value="10">10 CPS (Fast)</option>
+                                <option value="20">20 CPS (Very Fast)</option>
+                                <option value="50">50 CPS (Extreme)</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="click-button">Mouse Button:</label>
+                            <select id="click-button">
+                                <option value="left" selected>Left Click</option>
+                                <option value="right">Right Click</option>
+                                <option value="middle">Middle Click</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Toggle Hotkey:</label>
+                        <input type="text" id="clicker-hotkey" value="F3" readonly>
+                        <small>Press F3 to start/stop auto clicking</small>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="start-clicker" class="btn btn-primary">
+                            <span class="click-icon">🖱️</span> Start Auto Clicker
+                        </button>
+                        <button id="stop-clicker" class="btn btn-danger" disabled>
+                            <span class="stop-square"></span> Stop Auto Clicker
+                        </button>
+                    </div>
+
+                    <div class="info-panel">
+                        <div class="click-stats">
+                            <strong>Status: <span id="clicker-status">Stopped</span></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Auto Hotkey Tab -->
+            <div class="tab-content" id="hotkey-tab">
+                <div class="section">
+                    <h2>Auto Hotkey</h2>
+                    <div class="controls-grid">
+                        <div class="control-group">
+                            <label for="hotkey-key">Key to Press:</label>
+                            <select id="hotkey-key">
+                                <option value="f" selected>F</option>
+                                <option value="space">Space</option>
+                                <option value="enter">Enter</option>
+                                <option value="shift">Shift</option>
+                                <option value="control">Ctrl</option>
+                                <option value="alt">Alt</option>
+                                <option value="w">W</option>
+                                <option value="a">A</option>
+                                <option value="s">S</option>
+                                <option value="d">D</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="hotkey-mode">Mode:</label>
+                            <select id="hotkey-mode">
+                                <option value="continuous" selected>Continuous Press</option>
+                                <option value="hold">Hold Down</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="control-group" id="hotkey-speed-group">
+                        <label for="hotkey-speed">Press Speed (per second):</label>
+                        <select id="hotkey-speed">
+                            <option value="1">1 per second</option>
+                            <option value="5">5 per second</option>
+                            <option value="10" selected>10 per second</option>
+                            <option value="20">20 per second</option>
+                            <option value="50">50 per second</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Toggle Hotkey:</label>
+                        <input type="text" id="hotkey-toggle" value="F4" readonly>
+                        <small>Press F4 to start/stop auto hotkey</small>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="start-hotkey" class="btn btn-primary">
+                            <span class="key-icon">⌨️</span> Start Auto Hotkey
+                        </button>
+                        <button id="stop-hotkey" class="btn btn-danger" disabled>
+                            <span class="stop-square"></span> Stop Auto Hotkey
+                        </button>
+                    </div>
+
+                    <div class="info-panel">
+                        <div class="hotkey-stats">
+                            <strong>Status: <span id="hotkey-status">Stopped</span></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <div class="footer-info">
+                <span>PC Macro AutoClicker v1.0.0</span>
+                <span class="separator">|</span>
+                <span>Built with Electron</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
