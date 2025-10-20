@@ -1,0 +1,65 @@
+{
+  "name": "pc-macro-autoclicker",
+  "version": "1.0.0",
+  "description": "A comprehensive PC automation tool with macro recording/playback, auto clicker, and auto hotkey functionality",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "npm install && electron-builder",
+    "build:win": "electron-builder --win",
+    "build:linux": "electron-builder --linux",
+    "build:mac": "electron-builder --mac",
+    "dist": "npm run build"
+  },
+  "keywords": ["automation", "macro", "autoclicker", "hotkey", "electron", "desktop"],
+  "author": "ston1ee",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "dependencies": {
+    "robotjs": "^0.6.0",
+    "iohook": "^0.9.3"
+  },
+  "build": {
+    "appId": "com.ston1ee.pc-macro-autoclicker",
+    "productName": "PC Macro AutoClicker",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/**/*",
+      "node_modules/robotjs/**/*",
+      "node_modules/iohook/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
